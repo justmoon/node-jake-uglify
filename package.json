@@ -1,0 +1,24 @@
+{
+  "name": "jake-uglify",
+  "version": "1.0.0",
+  "description": "Uglify helper for jake",
+  "main": "./index",
+  "keywords": [
+    "minify",
+    "uglify",
+    "build",
+    "jake"
+  ],
+
+  "author": "Stefan Thomas <justmoon@members.fsf.org> (http://www.justmoon.net)",
+
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/justmoon/node-jake-uglify.git"
+  },
+
+  "dependencies" : {
+    "uglify-js" : "1.1.0",
+    "step" : "0.0.4"
+  }
+}
