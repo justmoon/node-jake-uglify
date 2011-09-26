@@ -6,14 +6,27 @@ var uglify = require("uglify-js");
 var jsp = uglify.parser;
 var pro = uglify.uglify;
 
-exports.minify = function (target) {
+exports.minify = function (target, options) {
   if ('object' !== typeof target) {
     throw new Error('Invalid target definition');
   }
-  file(target, minifyHandler, true);
+
+  options = options || {};
+
+  if ("string" === typeof options.header) {
+    if (options.header.substr(-1) !== "\n") {
+      options.header += "\n";
+    }
+  } else {
+    options.header = "";
+  }
+
+  file(target, function () {
+    minifyHandler.apply(this, [options]);
+  }, true);
 };
 
-function minifyHandler() {
+function minifyHandler(opts) {
   var inputPaths = this.prereqs;
   var outputPath = this.name;
 
@@ -54,7 +67,7 @@ function minifyHandler() {
     },
     function writeResult(err, data) {
       if (err) throw err;
-      var output = data.join('\n');
+      var output = "" + opts.header + data.join('\n') + '\n';
 
       fs.writeFile(outputPath, output, this);
     },

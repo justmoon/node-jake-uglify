@@ -17,3 +17,18 @@ minify({'bitcoinjs-min.js': [
     'src/wallet.js'
 ]});
 ```
+
+# Options
+
+You can provide a second object with additional settings:
+
+``` js
+minify({'bitcoinjs-min.js': [
+    'src/bitcoin.js',
+    'src/wallet.js'
+]},{
+  header: "/* BitcoinJS v1.0.0 */"
+});
+```
+
+* `header`: Header that should be prepended to the minified result
