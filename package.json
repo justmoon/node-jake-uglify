@@ -1,6 +1,6 @@
 {
   "name": "jake-uglify",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Uglify helper for jake",
   "main": "./index",
   "keywords": [
