@@ -30,19 +30,6 @@ function minifyHandler(opts) {
   var inputPaths = this.prereqs;
   var outputPath = this.name;
 
-  function loadAndMinify(filename, callback) {
-    fs.readFile(filename, 'utf8', function (err, src) {
-      try {
-        if (err) throw err;
-
-        var res = pro.gen_code(pro.ast_squeeze(pro.ast_mangle(jsp.parse(src))));
-        callback(null, res);
-      } catch (err) {
-        callback(err);
-      }
-    });
-  };
-
   Step(
     function readFiles(err) {
       var group = this.group();
@@ -67,7 +54,7 @@ function minifyHandler(opts) {
     },
     function writeResult(err, data) {
       if (err) throw err;
-      var output = "" + opts.header + data.join('\n') + '\n';
+      var output = "" + opts.header + data.join(';\n') + '\n';
 
       fs.writeFile(outputPath, output, this);
     },
@@ -83,3 +70,21 @@ function minifyHandler(opts) {
   );
 };
 
+
+/**
+ * Helper: Load and minify a file.
+ *
+ * @returns String Minified code
+ */
+function loadAndMinify(filename, callback) {
+  fs.readFile(filename, 'utf8', function (err, src) {
+    try {
+      if (err) throw err;
+
+      var res = pro.gen_code(pro.ast_squeeze(pro.ast_mangle(jsp.parse(src))));
+      callback(null, res);
+    } catch (err) {
+      callback(err);
+    }
+  });
+};
