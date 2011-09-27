@@ -64,6 +64,8 @@ function minifyHandler(opts) {
                       err.stack :
                       err.toString());
       }
+
+      this();
     },
     // Jake callback
     complete
